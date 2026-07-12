@@ -171,15 +171,7 @@ function initAudioPlayer() {
   const trackStatus = document.querySelector(".track-status");
   const musicDisc = document.getElementById("music-disc");
 
-  // Attempt to check if local music file exists. If not, use fallback link
-  bgMusic.addEventListener("error", () => {
-    const fallback = bgMusic.getAttribute("data-fallback");
-    if (fallback && bgMusic.src !== fallback) {
-      console.warn("Local music file not found. Loading romantic fallback track...");
-      bgMusic.src = fallback;
-      bgMusic.load();
-    }
-  });
+
 
   // Play/Pause toggle
   playPauseBtn.addEventListener("click", () => {

@@ -441,20 +441,7 @@ function initProposalInteractions() {
     btnNo.style.zIndex = "999";
   }
 
-  // Proximity sensor: runs away if cursor gets within 120px
-  window.addEventListener("mousemove", (e) => {
-    const btnRect = btnNo.getBoundingClientRect();
-    const btnCenterX = btnRect.left + btnRect.width / 2;
-    const btnCenterY = btnRect.top + btnRect.height / 2;
-    const dist = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
-    if (dist < 120) {
-      escapeButton(e);
-    }
-  });
-
-  // Trigger escape on hover, touch, keyboard focus, and click attempts
-  btnNo.addEventListener("mouseenter", escapeButton);
-  btnNo.addEventListener("focus", escapeButton);
+  // Trigger escape only on touch or click attempts
   btnNo.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();

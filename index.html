@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Love Story — Will You Be Mine?</title>
+  <meta name="description" content="A cinematic, elegant romantic proposal and interactive timeline of our journey together. Created with love.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Dancing+Script:wght@500;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loader" class="loader-container">
+    <div class="loader-content">
+      <div class="loader-heart">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </div>
+      <h2 class="loader-text">Loading Our Universe...</h2>
+    </div>
+  </div>
+
+  <!-- Background Particle & Stars Canvas -->
+  <canvas id="particles-canvas" class="background-canvas"></canvas>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-container">
+    <div id="scroll-progress" class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Floating Music Player -->
+  <div id="music-player" class="music-player-card">
+    <div class="music-info">
+      <div class="disc-animation-container">
+        <div id="music-disc" class="music-disc">🎵</div>
+      </div>
+      <div class="track-details">
+        <span class="track-title">Romantic Melody</span>
+        <span class="track-status">Paused</span>
+      </div>
+    </div>
+    <div class="music-controls">
+      <button id="btn-play-pause" class="music-btn" aria-label="Play/Pause">
+        <!-- Play Icon -->
+        <svg id="icon-play" viewBox="0 0 24 24" width="24" height="24">
+          <path d="M8 5v14l11-7z" fill="currentColor"/>
+        </svg>
+        <!-- Pause Icon -->
+        <svg id="icon-pause" viewBox="0 0 24 24" width="24" height="24" class="hidden">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/>
+        </svg>
+      </button>
+      <div class="volume-container">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5" class="volume-slider">
+      </div>
+    </div>
+    <!-- HTML5 Audio Component -->
+    <audio id="bg-music" loop src="music/romantic_piano.mp3" data-fallback="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"></audio>
+  </div>
+
+  <!-- Hero / Landing Section -->
+  <header id="hero" class="hero-section">
+    <div class="hero-stars-overlay"></div>
+    <div class="moon-container">
+      <img id="moon" src="images/moon.svg" alt="Glowing Moon" class="glowing-moon" title="Click the moon to uncover a secret...">
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title fade-in-up">Every love story is beautiful...</h1>
+      <p class="hero-subtitle fade-in-up delay-1">...but ours is my favorite.</p>
+      <button id="btn-begin" class="btn btn-primary fade-in-up delay-2">
+        Begin Our Story <span class="heart-icon">❤️</span>
+      </button>
+    </div>
+    <div class="scroll-down-arrow">
+      <span>Scroll to explore</span>
+      <div class="arrow-indicator"></div>
+    </div>
+  </header>
+
+  <!-- Interactive Story Timeline Section -->
+  <section id="our-story" class="section timeline-section">
+    <div class="section-header">
+      <span class="section-tag font-cursive">Our Journey</span>
+      <h2 class="section-title">How We Got Here</h2>
+      <div class="title-divider"></div>
+    </div>
+
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+
+      <!-- Timeline Card 1 -->
+      <div class="timeline-item left reveal-on-scroll">
+        <div class="timeline-dot" style="padding:4px; border:none; background: radial-gradient(circle, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </div>
+        <div class="timeline-content card glass-card">
+          <span class="timeline-date">May 25, 2026</span>
+          <h3 class="timeline-title">The First Message on Instagram</h3>
+          <div class="timeline-img-container">
+            <img src="images/story1.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=600&auto=format&fit=crop';" alt="Instagram DM" class="timeline-img">
+          </div>
+          <p class="timeline-text">It started with a simple message on Instagram — just a few words that would change everything. What began as a casual DM quickly turned into hours of endless conversation, and I knew right away that you were someone special.</p>
+        </div>
+      </div>
+
+      <!-- Timeline Card 2 -->
+      <div class="timeline-item right reveal-on-scroll">
+         <div class="timeline-dot">📞</div>
+        <div class="timeline-content card glass-card">
+          <span class="timeline-date">Late May, 2026</span>
+          <h3 class="timeline-title">Texting, Calling & Sharing My World</h3>
+          <div class="timeline-img-container">
+            <img src="images/story2.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534996858221-380b92700493?q=80&w=600&auto=format&fit=crop';" alt="Late night calls" class="timeline-img">
+          </div>
+          <p class="timeline-text">From endless texts to long calls, I found myself sharing everything with you — my dreams, my fears, my entire world. Even when you keep things to yourself, just hearing your voice and knowing you're there is more than enough. I've never opened up to anyone the way I open up to you.</p>
+        </div>
+      </div>
+
+      <!-- Timeline Card 3 -->
+      <div class="timeline-item left reveal-on-scroll">
+        <div class="timeline-dot">💖</div>
+        <div class="timeline-content card glass-card">
+          <span class="timeline-date">June, 2026</span>
+          <h3 class="timeline-title">Falling for You Through the Screen</h3>
+          <div class="timeline-img-container">
+            <img src="images/story3.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=600&auto=format&fit=crop';" alt="Falling in love online" class="timeline-img">
+          </div>
+          <p class="timeline-text">Even through a screen, I could feel your warmth. Your voice on calls, your laughter in voice notes, your silly selfies — every little thing made me fall harder. I realized that distance means nothing when someone means everything.</p>
+        </div>
+      </div>
+
+      <!-- Timeline Card 4 -->
+      <div class="timeline-item right reveal-on-scroll">
+        <div class="timeline-dot">📱</div>
+        <div class="timeline-content card glass-card">
+          <span class="timeline-date">Every Single Day</span>
+          <h3 class="timeline-title">Our Virtual World Together</h3>
+          <div class="timeline-img-container">
+            <img src="images/story4.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516589091380-5d8e87df6999?q=80&w=600&auto=format&fit=crop';" alt="Video calls" class="timeline-img">
+          </div>
+          <p class="timeline-text">We built our own little world online — sharing songs, sending memes, watching things together from miles apart, and having video calls that feel like we're in the same room. You made virtual love feel more real than anything.</p>
+        </div>
+      </div>
+
+      <!-- Timeline Card 5 -->
+      <div class="timeline-item left reveal-on-scroll">
+        <div class="timeline-dot">🌍</div>
+        <div class="timeline-content card glass-card">
+          <span class="timeline-date">Soon & Forever</span>
+          <h3 class="timeline-title">The Day We'll Finally Meet</h3>
+          <div class="timeline-img-container">
+            <img src="images/story5.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600&auto=format&fit=crop';" alt="Future together" class="timeline-img">
+          </div>
+          <p class="timeline-text">We haven't met in person yet — but that day is coming, and it will be the most magical moment of our lives. Until then, every text, every call, every "good morning" and "goodnight" is building a love story that distance can never break.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Relationship Counter Section -->
+  <section id="counter" class="section counter-section reveal-on-scroll">
+    <div class="section-header">
+      <span class="section-tag font-cursive">Loving You For</span>
+      <h2 class="section-title">Every Single Second</h2>
+      <div class="title-divider"></div>
+    </div>
+    
+    <div class="counter-container glass-card">
+      <div class="counter-box">
+        <span id="years" class="counter-number">00</span>
+        <span class="counter-label">Years</span>
+      </div>
+      <div class="counter-box">
+        <span id="months" class="counter-number">00</span>
+        <span class="counter-label">Months</span>
+      </div>
+      <div class="counter-box">
+        <span id="days" class="counter-number">00</span>
+        <span class="counter-label">Days</span>
+      </div>
+      <div class="counter-box">
+        <span id="hours" class="counter-number">00</span>
+        <span class="counter-label">Hours</span>
+      </div>
+      <div class="counter-box">
+        <span id="minutes" class="counter-number">00</span>
+        <span class="counter-label">Minutes</span>
+      </div>
+      <div class="counter-box">
+        <span id="seconds" class="counter-number">00</span>
+        <span class="counter-label">Seconds</span>
+      </div>
+    </div>
+    <p class="counter-caption">Since we first started talking on Instagram on <strong>May 25, 2026</strong>.</p>
+  </section>
+
+  <!-- Photo Gallery Section -->
+  <section id="gallery" class="section gallery-section">
+    <div class="section-header">
+      <span class="section-tag font-cursive">Captured Moments</span>
+      <h2 class="section-title">Our Memory Gallery</h2>
+      <div class="title-divider"></div>
+    </div>
+
+    <!-- Gallery Grid (Masonry effect using CSS grids) -->
+    <div class="gallery-grid">
+      <!-- Polaroid Item 1 -->
+      <div class="gallery-item reveal-on-scroll" data-index="1">
+        <div class="polaroid-card">
+          <div class="polaroid-img-wrapper">
+            <img src="images/photo1.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=600&auto=format&fit=crop';" alt="Hold Hands">
+          </div>
+          <div class="polaroid-caption font-cursive">Holding hands, holding hearts.</div>
+        </div>
+      </div>
+      <!-- Polaroid Item 2 -->
+      <div class="gallery-item reveal-on-scroll" data-index="2">
+        <div class="polaroid-card">
+          <div class="polaroid-img-wrapper">
+            <img src="images/photo2.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=600&auto=format&fit=crop';" alt="Night Lights">
+          </div>
+          <div class="polaroid-caption font-cursive">Underneath the galaxy.</div>
+        </div>
+      </div>
+      <!-- Polaroid Item 3 -->
+      <div class="gallery-item reveal-on-scroll" data-index="3">
+        <div class="polaroid-card">
+          <div class="polaroid-img-wrapper">
+            <img src="images/photo3.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=600&auto=format&fit=crop';" alt="Fairy Lights">
+          </div>
+          <div class="polaroid-caption font-cursive">Our love shines bright.</div>
+        </div>
+      </div>
+      <!-- Polaroid Item 4 -->
+      <div class="gallery-item reveal-on-scroll" data-index="4">
+        <div class="polaroid-card">
+          <div class="polaroid-img-wrapper">
+            <img src="images/photo4.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop';" alt="Roses">
+          </div>
+          <div class="polaroid-caption font-cursive">Gentle as a rose petal.</div>
+        </div>
+      </div>
+      <!-- Polaroid Item 5 -->
+      <div class="gallery-item reveal-on-scroll" data-index="5">
+        <div class="polaroid-card">
+          <div class="polaroid-img-wrapper">
+            <img src="images/photo5.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600&auto=format&fit=crop';" alt="Couple Silhouette">
+          </div>
+          <div class="polaroid-caption font-cursive">Silhouettes and secrets.</div>
+        </div>
+      </div>
+      <!-- Polaroid Item 6 -->
+      <div class="gallery-item reveal-on-scroll" data-index="6">
+        <div class="polaroid-card">
+          <div class="polaroid-img-wrapper">
+            <img src="images/photo6.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600&auto=format&fit=crop';" alt="Sunset Beach">
+          </div>
+          <div class="polaroid-caption font-cursive">Sunsets with my favorite.</div>
+        </div>
+      </div>
+      <!-- Polaroid Item 7 -->
+      <div class="gallery-item reveal-on-scroll" data-index="7">
+        <div class="polaroid-card">
+          <div class="polaroid-img-wrapper">
+            <img src="images/photo7.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop';" alt="Cafe Date">
+          </div>
+          <div class="polaroid-caption font-cursive">Warm coffee & cozy talks.</div>
+        </div>
+      </div>
+      <!-- Polaroid Item 8 -->
+      <div class="gallery-item reveal-on-scroll" data-index="8">
+        <div class="polaroid-card">
+          <div class="polaroid-img-wrapper">
+            <img src="images/photo8.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop';" alt="Holding Hands Zoom">
+          </div>
+          <div class="polaroid-caption font-cursive">Never letting you go.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Lightbox Element -->
+  <div id="lightbox" class="lightbox-overlay">
+    <span class="lightbox-close">&times;</span>
+    <button class="lightbox-nav lightbox-prev" aria-label="Previous Image">&#10094;</button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Zoomed view">
+      <p id="lightbox-caption" class="font-cursive"></p>
+    </div>
+    <button class="lightbox-nav lightbox-next" aria-label="Next Image">&#10095;</button>
+  </div>
+
+  <!-- Love Letter Section -->
+  <section id="love-letter-section" class="section letter-section">
+    <div class="section-header">
+      <span class="section-tag font-cursive">A Secret Note</span>
+      <h2 class="section-title">A Letter From My Heart</h2>
+      <div class="title-divider"></div>
+    </div>
+
+    <div class="letter-envelope-container reveal-on-scroll">
+      <!-- Glassmorphic Letter Container -->
+      <div class="letter-container glass-card">
+        <div class="letter-inner">
+          <h3 class="letter-heading font-cursive">My Dearest Sanu,</h3>
+          <div class="letter-body font-cursive">
+            <span id="typing-text"></span><span class="typing-cursor">|</span>
+          </div>
+          <div class="letter-signature font-cursive">
+            <p>Yours and yours alone,</p>
+            <p class="signature-name">Forever Me ❤️</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proposal Section -->
+  <section id="proposal" class="section proposal-section">
+    <div id="proposal-wrapper" class="proposal-container glass-card reveal-on-scroll">
+      <!-- Glowing Animated Heart -->
+      <div class="proposal-heart-container">
+        <div class="heart-pulse-glow"></div>
+        <div class="glowing-heart-main">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF4D6D"/>
+          </svg>
+        </div>
+      </div>
+      
+      <h2 class="proposal-question">Will You Be Mine Forever? ❤️</h2>
+      <p class="proposal-subtext">Let's continue writing our infinite love story together.</p>
+      
+      <div class="proposal-buttons">
+        <button id="btn-yes" class="btn btn-yes font-cursive">YES ❤️</button>
+        <button id="btn-no" class="btn btn-no font-cursive">NO 🙈</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Celebration Screen Overlay -->
+  <div id="celebration-overlay" class="celebration-overlay hidden">
+    <canvas id="fireworks-canvas"></canvas>
+    <div class="celebration-content">
+      <div class="celebration-heart">🎉❤️🎉</div>
+      <h1 class="celebration-heading font-cursive">Yes!</h1>
+      <p class="celebration-message">You just made me the happiest person in the world.</p>
+      <p class="celebration-subtext">Our infinite together begins right now. I promise to love you, cherish you, and hold you through every step of this journey.</p>
+      <div class="celebration-rings">💍✨🥂</div>
+      <button id="btn-close-celebration" class="btn btn-primary">Close Celebration</button>
+    </div>
+  </div>
+
+  <!-- Interactive Easter Egg Notification -->
+  <div id="easter-egg-banner" class="easter-egg-banner hidden">
+    <div class="banner-content">
+      <span>🌙 <strong>Easter Egg Unlocked!</strong> 🌙</span>
+      <p>The moon whispers: "In a sky full of stars, you are the one that shines brightest in my night."</p>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to Top">
+    <svg viewBox="0 0 24 24" width="24" height="24">
+      <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <!-- JavaScript Source -->
+  <script src="js/script.js"></script>
+</body>
+</html>

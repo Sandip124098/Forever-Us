@@ -468,8 +468,8 @@ function initProposalInteractions() {
 
   // Send WhatsApp Message
   btnSendWhatsapp.addEventListener("click", () => {
-    // ⚠️ USER: REPLACE THIS WITH YOUR ACTUAL PHONE NUMBER (INCLUDE COUNTRY CODE, NO PLUS SIGN)
-    const phoneNumber = "YOUR_PHONE_NUMBER_HERE"; 
+    // Number provided by the user
+    const phoneNumber = "9779856053527"; 
     
     let messageText = sanuMessage.value.trim();
     if (messageText === "") {

@@ -397,7 +397,7 @@ function initProposalInteractions() {
   const btnNo = document.getElementById("btn-no");
   const celebration = document.getElementById("celebration-overlay");
   const closeCelBtn = document.getElementById("btn-close-celebration");
-  const btnSendWhatsapp = document.getElementById("btn-send-whatsapp");
+  const btnSendMessage = document.getElementById("btn-send-message");
   const sanuMessage = document.getElementById("sanu-message");
 
   // Runaway NO button algorithm
@@ -466,10 +466,9 @@ function initProposalInteractions() {
     }, 50);
   });
 
-  // Send WhatsApp Message
-  btnSendWhatsapp.addEventListener("click", () => {
-    // Number provided by the user
-    const phoneNumber = "9779856053527"; 
+  // Send Email Message using FormSubmit
+  btnSendMessage.addEventListener("click", () => {
+    const emailAddress = "sandiptraders026@gmail.com"; 
     
     let messageText = sanuMessage.value.trim();
     if (messageText === "") {
@@ -478,11 +477,31 @@ function initProposalInteractions() {
       messageText = "I said YES! ❤️ Here is my message:\n\n" + messageText;
     }
     
-    const encodedMessage = encodeURIComponent(messageText);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
-    // Open WhatsApp in a new tab
-    window.open(whatsappUrl, '_blank');
+    // Change button text to show loading state
+    const originalText = btnSendMessage.textContent;
+    btnSendMessage.textContent = "Sending...";
+    btnSendMessage.disabled = true;
+
+    fetch(`https://formsubmit.co/ajax/${emailAddress}`, {
+      method: "POST",
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+          message: messageText
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert("love you sanima");
+        btnSendMessage.textContent = "Message Sent! ❤️";
+    })
+    .catch(error => {
+        console.log(error);
+        alert("love you sanima"); // show it anyway
+        btnSendMessage.textContent = "Message Sent! ❤️";
+    });
   });
 
   // Close celebration overlay

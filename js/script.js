@@ -397,6 +397,8 @@ function initProposalInteractions() {
   const btnNo = document.getElementById("btn-no");
   const celebration = document.getElementById("celebration-overlay");
   const closeCelBtn = document.getElementById("btn-close-celebration");
+  const btnSendWhatsapp = document.getElementById("btn-send-whatsapp");
+  const sanuMessage = document.getElementById("sanu-message");
 
   // Runaway NO button algorithm
   function escapeButton(e) {
@@ -462,6 +464,25 @@ function initProposalInteractions() {
       isCelebrativeState = true;
       triggerConfettiExplosion();
     }, 50);
+  });
+
+  // Send WhatsApp Message
+  btnSendWhatsapp.addEventListener("click", () => {
+    // ⚠️ USER: REPLACE THIS WITH YOUR ACTUAL PHONE NUMBER (INCLUDE COUNTRY CODE, NO PLUS SIGN)
+    const phoneNumber = "YOUR_PHONE_NUMBER_HERE"; 
+    
+    let messageText = sanuMessage.value.trim();
+    if (messageText === "") {
+      messageText = "I said YES! ❤️";
+    } else {
+      messageText = "I said YES! ❤️ Here is my message:\n\n" + messageText;
+    }
+    
+    const encodedMessage = encodeURIComponent(messageText);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    // Open WhatsApp in a new tab
+    window.open(whatsappUrl, '_blank');
   });
 
   // Close celebration overlay

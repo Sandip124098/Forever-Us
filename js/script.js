@@ -478,30 +478,47 @@ function initProposalInteractions() {
     }
     
     // Change button text to show loading state
-    const originalText = btnSendMessage.textContent;
     btnSendMessage.textContent = "Sending...";
     btnSendMessage.disabled = true;
 
-    fetch(`https://formsubmit.co/ajax/${emailAddress}`, {
-      method: "POST",
-      headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-          message: messageText
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
+    // Create a hidden iframe
+    let iframe = document.getElementById("hiddenConfirm");
+    if (!iframe) {
+        iframe = document.createElement("iframe");
+        iframe.name = "hiddenConfirm";
+        iframe.id = "hiddenConfirm";
+        iframe.style.display = "none";
+        document.body.appendChild(iframe);
+    }
+
+    // Create a form to submit
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = `https://formsubmit.co/${emailAddress}`;
+    form.target = "hiddenConfirm";
+    
+    // Add the message input
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "Message_From_Sanu";
+    input.value = messageText;
+    form.appendChild(input);
+
+    // Disable FormSubmit captcha so it can submit silently
+    const captcha = document.createElement("input");
+    captcha.type = "hidden";
+    captcha.name = "_captcha";
+    captcha.value = "false";
+    form.appendChild(captcha);
+
+    document.body.appendChild(form);
+    form.submit();
+
+    // Show success popup and update button
+    setTimeout(() => {
         alert("love you sanima");
         btnSendMessage.textContent = "Message Sent! ❤️";
-    })
-    .catch(error => {
-        console.log(error);
-        alert("love you sanima"); // show it anyway
-        btnSendMessage.textContent = "Message Sent! ❤️";
-    });
+    }, 1500);
   });
 
   // Close celebration overlay
